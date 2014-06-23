@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introducing hitr</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introducing hitr">
+  <meta name="author" content="Andrew Desautels">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Introducing hitr</h1>
+    <h2>A simple tool for exploring offensive drivers of success in baseball</h2>
+    <p>Andrew Desautels<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Overview</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>hitr is a simple R-powered application that enables the user to explore
+relationships between various team offensive baseball statistics and a set of
+outcomes.</p>
+
+<ul>
+<li><p>Included outcomes: Runs per Game, Winning Percentage</p></li>
+<li><p>Included predictors: Batting Average, On-Base Percentage, Slugging Percentage,
+On-Base Plus Slugging, Hits per Game, Extra-Base Hits per Game, Home Runs per
+Game, Stolen Bases per Game, Basic Runs Created, Isolated Power, Power-Speed
+Number</p></li>
+</ul>
+
+<p>The following example illustrates one exploration that can be performed with hitr.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Example: Batting Average vs. On-Base Percentage</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img src="assets/fig/unnamed-chunk-21.png" alt="plot of chunk unnamed-chunk-2"> <img src="assets/fig/unnamed-chunk-22.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>Let&#39;s say we want to determine whether batting average or on-base percentage better explains runs scored per game. All we have to do is examine each using hitr, and compare.</li>
+<li>hitr produces plots similar to the ones on this slide, which show the relationships between runs per game and batting average, and runs per game and on-base percentage, respectively, for the period 1954–2013.</li>
+<li>Visually, it appears that the on-base percentage model is a better fit, but let&#39;s quantify that observation...</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example (continued)</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <h4>Batting Average</h4>
+
+<pre><code class="r">fitAVG &lt;- lm(RpG ~ AVG, teams)
+summary(fitAVG)$adj.r.squared
+</code></pre>
+
+<pre><code>## [1] 0.6834
+</code></pre>
+
+<p><br></p>
+
+<h4>On-Base Percentage</h4>
+
+<pre><code class="r">fitOBP &lt;- lm(RpG ~ OBP, teams)
+summary(fitOBP)$adj.r.squared
+</code></pre>
+
+<pre><code>## [1] 0.7968
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li><p>The adjusted R-squared values (which hitr presents alongside the plots) confirm our visual observation, showing that on-base percentage does a much better job explaining runs scored per game than batting average, though if you explore hitr, you&#39;ll see that there are other much better predictors of runs per game.</p></li>
+<li><p>This type of exploration is valuable, because it encourages us to question our understanding of how the game works, and allows us to see that reality is not always consistent with conventional thinking.</p></li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Areas for Further Development</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>So far, hitr only uses offensive statistics, and therefore only addresses half of the game of baseball. The logical next step would be to include defensive statistics. Though a pitching module would be relatively straightforward, a fielding module (the other component of defense) would be much more difficult. Available fielding statistics are relatively poor, so the picture of defensive drivers of success would likely be less clear than that of offensive drivers.</p></li>
+<li><p>Another logical improvement would be to look at the impacts of individual player statistics on team runs scored/allowed or team wins. This would be feasible, as the data is available, though it would require additional data processing and cleaning.</p></li>
+</ul>
+
+<style>
+.title-slide {
+  background-color: #555;
+}
+
+.title-slide hgroup > h1{
+ font-family: 'Oswald', 'Helvetica', sanserif;
+}
+
+.title-slide hgroup > h1,
+.title-slide hgroup > h2,
+.title-slide hgroup > p {
+  color: #EEE ;
+}
+
+slide:not(.segue)  h2{
+  color: steelblue;
+}
+
+</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Overview'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Example: Batting Average vs. On-Base Percentage'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example (continued)'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Areas for Further Development'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
