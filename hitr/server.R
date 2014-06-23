@@ -32,7 +32,7 @@ shinyServer(
                 stat_smooth(method = 'lm', se = FALSE, color = 'orange', size = 1.5)
             print(p)
             plotLabel <- paste({input$predictor}, ' vs. ', {input$outcome},
-                               ', ', minYear, '–', maxYear,
+                               ', ', minYear, '-', maxYear,
                                ': Adjusted R-squared = ',
                                round(summary(fit)$adj.r.squared, 3), sep = '')
             output$plotLabel <- renderText(plotLabel)
